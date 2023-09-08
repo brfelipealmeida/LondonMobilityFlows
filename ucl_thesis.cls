@@ -463,7 +463,7 @@
        \newcommand \makedeclaration {%
          \clearpage%
          I, \@author , confirm that the work presented in this dissertation is my own.
-         Where information has been derived from other sources, I confirm that this has been indicated in the work. It is XX,XXX words in lenght, from the introduction to conclusion, excluding figures.
+         Where information has been derived from other sources, I confirm that this has been indicated in the work. It is 10,250 words in lenght, from the introduction to conclusion, excluding figures.
          \gdef \@author{}%
          \clearpage%
        }%
