@@ -26,13 +26,9 @@
 
     The application of neural network methodology in spatial interaction modelling marked a significant advancement in data science methodologies. A new approach from traditional models could provide more accurate predictions. \citep{wilkinsonSpatialInteractionModels2023}
         
-    Comparative studies between neural network models and established frameworks revealed promising insights. These investigations indicated that neural networks could surpass the predictive accuracy of the Wilsonian model \citep{fischerArtificialNeuralNetworks1994, blackSpatialInteractionModeling1995, wilkinsonSpatialInteractionModels2023}. However, it is crucial to note that these neural network models were frequently contrasted against unconstrained Ordinary Least Squares (OLS) calibrated models, raising queries about the true advantages of neural networks in spatial interaction modelling (Mozolin et al., 2000). \citep{wilkinsonSpatialInteractionModels2023}
+    Comparative studies between neural network models and established frameworks revealed promising insights. These investigations indicated that neural networks could surpass the predictive accuracy of the Wilsonian model \citep{fischerArtificialNeuralNetworks1994, blackSpatialInteractionModeling1995, wilkinsonSpatialInteractionModels2023}. However, it is crucial to note that these neural network models were frequently contrasted against unconstrained Ordinary Least Squares (OLS) calibrated models, raising queries about the true advantages of neural networks in spatial interaction modelling\citep{mozolinTripDistributionForecasting2000, wilkinsonSpatialInteractionModels2023}.
         
-    Incorporating neural networks presents specific challenges. The key requirement is the development of loss functions that are unambiguous, relevant, and clear. These functions play a pivotal role in estimating the total income of retail stores. The complexities of this implementation are highlighted in the iterative calibration phase, where the reliance on metrics such as average trip distance is emphasised. Thus, it is crucial to carefully consider and calibrate neural networks to ensure accurate revenue estimation in the grocery retail sector. \citep{wilkinsonSpatialInteractionModels2023}
-        
-    The early applications of neural networks in spatial interaction modelling demonstrated their potential to enhance predictive accuracy in commodity flows, trade, and migration domains. However, a comprehensive understanding of their advantages over traditional models requires more nuanced comparative assessments\citep{wilkinsonSpatialInteractionModels2023}.
-
-    Deep Learning models offer the advantage of a high perfomance in capturing complex mobility patterns, a valuable method for flow generation. However, it is important to note their effectiveness on the data they are trained on, raising questions about their applicability across different geographical contexts. \citep{wilkinsonSpatialInteractionModels2023}
+    According to \cite{wilkinsonSpatialInteractionModels2023}, incorporating neural networks presents specific challenges. The key requirement is the development of loss functions that are unambiguous, relevant, and clear. These functions play a pivotal role in estimating the total income of retail stores. The complexities of this implementation are highlighted in the iterative calibration phase, where the reliance on metrics such as average trip distance is emphasised. The early applications of neural networks in spatial interaction modelling demonstrated their potential to enhance predictive accuracy in commodity flows, trade, and migration domains. However, a comprehensive understanding of their advantages over traditional models requires more nuanced comparative assessments. Deep Learning models offer the advantage of high performance in capturing complex mobility patterns, a valuable method for flow generation. However, it is important to note their effectiveness on the data they are trained on, raising questions about their applicability across different geographical contexts.
 
     \cite{lucaSurveyDeepLearning2021} study aims to investigate the use of deep learning techniques in mobility-related tasks. The research focuses on estimating mobility flows, particularly on generating realistic trajectories that replicate actual movement patterns. The study aims to enhance our understanding of complex mobility networks and their applications in various domains by utilising deep learning.
 
@@ -42,12 +38,15 @@
         
     The evaluation of flow generators typically relies on commuting data obtained from official statistical institutes' censuses. The assessment of flow generation commonly revolves around calculating the Common Part Of Commuters (CPC) between real and generated flows. Additionally, widely used metrics like Mean Absolute Error (MAE), Root Mean Square Error (RMSE), and Mean Absolute Percentage Error (MAPE) are also employed for this purpose.
         
-    To summarise, integrating Deep Learning into generative tasks related to mobility patterns is a relatively recent development poised to gain prominence in the near future. While these models hold the potential to unravel complex mobility dynamics, their reliance on training data, lack of transparency, privacy considerations, and evaluation metrics emphasise the multifaceted nature of their application in this domain.   
+    To summarise, integrating Deep Learning into generative tasks related to mobility patterns is a relatively recent development poised to gain prominence in the near future. While these models hold the potential to unravel complex mobility dynamics, their reliance on training data, lack of transparency, privacy considerations, and evaluation metrics emphasise the multifaceted nature of their application in this domain. 
+
+    In the figure \ref{fig: DG evaluation} below, where \cite{lucaSurveyDeepLearning2021} surveys deep learning models centred on flow generation, it becomes evident that the Deep Gravity Model stands out for its ability to incorporate spatial patterns and geographic characteristics. This model aligns perfectly with the objectives of this study.
 
     \begin{figure}[H]
         \centering
         \includegraphics[width=12cm]{Images/deepgravity_fig.png}
-        \caption{Deep Learning for Mobility Flows. Adapted from: \cite{lucaSurveyDeepLearning2021}}
+        \caption{Deep Learning for Mobility Flows}
+        \footnotesize{Adapted from: \cite{lucaSurveyDeepLearning2021}}
         \label{fig: DG evaluation}
     \end{figure}
 

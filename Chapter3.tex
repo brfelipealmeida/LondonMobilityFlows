@@ -180,20 +180,15 @@ TR & Transport & Bus stops, Tube stations \\ \bottomrule
 %%%%%% DEEP GRAVITY    
         \subsection{Deep gravity Model}
 
+According to \cite{siminiDeepGravityModel2021}, To generate flows from a given origin location, denoted as \(l_i\), the Deep Gravity Model employs a set of input features to calculate the probability \(p_{i,j}\) that any of the \(n\) locations within the region of interest, represented as \(l_j\), serves as the destination for a trip originating from \(l_i\). This model produces an \(n\)-dimensional vector of probabilities \(p_{i,j}\) for \(j = 1, \ldots, n\). The computation of these probabilities follows a three-step process.
 
-The Deep Gravity model uses various input features to compute the probability $p_{i,j}$ a trip originating at a given location (e.g., $l_i$), to end at any of the $n$ other locations in the region of interest (e.g., $l_j$). The model produces an $n$-dimensional vector of probabilities $p_{i,j}$ for each $j = 1, ..., n$, and this computation is carried out in three steps.
-In the first step, input vectors $x(l_i, l_j)$ are created by combining three input features:
+Firstly, the input vectors \(x(l_i, l_j) = \text{concat}[x_i, x_j, r_{i,j}]\) for \(j = 1, \ldots, n\) are derived by concatenating various input features. Here, \(x_i\) denotes the feature vector of the origin location \(l_i\), \(x_j\) signifies the feature vector of the destination location \(l_j\), and \(r_{i,j}\) represents the distance between the origin and destination. For each origin location, \(l_i\), \(n\) input vectors \(x(l_i, l_j)\) are created, one for each potential destination location within the region of interest.
 
-\begin{itemize}
-        \item $x_i$, representing the feature vector of the origin location $l_i$
-        \item $x_j$, representing the feature vector of the destination location $l_j$
-\end{itemize}
-The geographic distance $r_{i,j}$ between the origin and destination
-For each origin location ($l_i$), $n$ input vectors $x(l_i, l_j)$ with $j = 1, ..., n$ are generated, each corresponding to a possible destination within the region of interest.
+These input vectors \(x(l_i, l_j)\) are concurrently fed into the same feed-forward neural network in the second step. This network comprises 15 hidden layers, with dimensions of 256 for the bottom six layers and 128 for the remaining layers. Specifically, the output of the initial layer, denoted as \(h = 0\), is given by the vector \(z(0)(l_i, l_j) = a(W(0) \cdot x(l_i, l_j))\), and for subsequent layers with \(h > 0\), it is expressed as \(z(h)(l_i, l_j) = a(W(h) \cdot z(h-1)(l_i, l_j))\), where \(W\) represents matrices with entries representing parameters learned during the training process.
 
-Next, these input vectors $x(l_i, l_j)$ are fed in parallel into the same feed-forward neural network, consisting of 15 hidden layers. The output of the final layer is a scalar $s(l_i, l_j) \in [-\infty, +\infty]$, referred to as the score, which indicates the likelihood of observing a trip from $l_i$ to $l_j$ according to the model. The probability (i.e., the model's output) is multiplied by the origin's total outflow to determine the generated flow between two locations.
+The output of the final layer is a scalar \(s(l_i, l_j) \in [-\infty, +\infty]\), referred to as the score. A higher score for a pair of locations \((l_i, l_j)\) implies a greater likelihood of observing a trip from \(l_i\) to \(l_j\) according to the model. These scores are subsequently transformed into probabilities through a softmax function, given by \(p_{i,j} = e^{s(l_i, l_j)}/\sum_ke^{s(l_i, l_k)}\). This function converts all scores into positive values that collectively sum up to one.
 
-The location feature vector $x_i$ provides a spatial representation of an area and includes features describing properties of the location $l_i$. Its dimension, $d$, corresponds to the total number of considered features.
+The generated flow between two locations is obtained by multiplying the probability (i.e., the model's output) by the total outflow from the origin.
 
 Additionally, Deep Gravity considers the geographic distance, $r_{i,j}$, between two locations, $l_i$ and $l_j$, measured along the earth's surface between the centroids of the two polygons representing the locations. Each flow in Deep Gravity is described by 39 features, comprising 18 geographic features of the origin and 18 of the destination, along with the distance between the origin and destination and their populations.
 
@@ -204,7 +199,7 @@ Additionally, Deep Gravity considers the geographic distance, $r_{i,j}$, between
         \label{fig: DG_input}
     \end{figure}
 
-Moreover, deep gravity is a model developed using Pytorch. This Python library conducts real-time execution of dynamic tensor computations, incorporating automatic differentiation and GPU acceleration while maintaining performance levels on par with the fastest contemporary deep learning libraries\citep{paszkePyTorchImperativeStyle2019}.  
+Moreover, deep gravity\citep{siminiDeepGravityModel2021} is a model developed using Pytorch. This Python library conducts real-time execution of dynamic tensor computations, incorporating automatic differentiation and GPU acceleration while maintaining performance levels on par with the fastest contemporary deep learning libraries\citep{paszkePyTorchImperativeStyle2019}.  
     
 %%%%%%%%%SPATIAL INTERACTION MODEL
 
