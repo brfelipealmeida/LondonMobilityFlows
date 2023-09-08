@@ -16,7 +16,7 @@ This study focuses on the entire region of London,  its inner and outer areas. L
 
     \section{Data}
 
-This study relies on three primary datasets: Locomizer, Point of Interest, and Census 2021. Locomizer serves as the central component of the analysis, with the aggregated origin and destination flow for London within Uber hexagons at level 9. The hexagon Id serves as the primary index, and to ensure coherence, the remaining datasets are incorporated into this index via an area-weighted spatial join.
+This study relies on three primary datasets: Locomizer, Point of Interest, and Census 2021. Locomizer serves as the central component of the analysis, with the aggregated origin and destination flow for London within hexagons as geographic area units. The hexagon ID serves as the primary index, and to ensure coherence, the remaining datasets are incorporated into this index via an area-weighted spatial join.
 
     \begin{figure}[H]
         \centering
@@ -174,8 +174,6 @@ TR & Transport & Bus stops, Tube stations \\ \bottomrule
     Data consistency is vital, given that the mobility data collected is from 2023, while the Points of Interest data is from 2022. Therefore, including the 2021 census data on London's population becomes crucial for maintaining coherence in the final data analysis. Thus, to prepare the data for use in the models, it was necessary to aggregate it under a common index—specifically, the Mobility data index in Hexagons at level 7. This aggregation step ensures the data is structured consistently for both models' analyses.
 
     Moreover, population data include an integral part of the 'Population and household estimates for England and Wales: Census 2021'. The Census employs a definition of a usual resident, encompassing individuals who were in the UK on Census Day (21 March 2021) and intended to stay for at least 12 months. Meanwhile, a household is defined as a single person living alone or a collective group.
-        
-   %The count of jobs originates from the Office for National Statistics (ONS), collected in 2021. This metric captures jobs held by residents of any age within the area and jobs performed by workers who commute into the area regardless of age. The total jobs figure constitutes a workplace-based metric, including employees, self-employment positions, government-supported trainees, and HM Forces (from the Ministry of Defence).
 
     \section{Research scope}
 
@@ -212,7 +210,11 @@ Moreover, deep gravity is a model developed using Pytorch. This Python library c
 
 \subsection{Spatial Interaction Model}
 
-The chosen model for this study is the Production-Constrained model, which focuses on predicting human movement patterns to work and non-work destinations. This model is particularly relevant as it enables the incorporation of data concerning the total opportunities available in non-work flows( POI). It also allows the use of the spatial distribution of opportunities for each hexagonal area. The availability of the Mobility dataset plays a crucial role, enabling the collection of work and non-work flows between origin and destination hexagons. Consequently, the equation of this model can be expressed as follows:
+The selected spatial interaction model for assessing commuting flows for work and non-work purposes is the production-constrained model, commonly called the retail model. This model offers the advantage of constraining origin information, employing categorical variables, the distance and incorporating data on destination attractiveness. It enables us to gain insights into the dynamics of commute flows from various origins to potential destinations. Our study determined destination attractiveness by considering the total counts of points of interest associated with each flow type, as outlined in the Dataset section.
+
+
+The availability of the Mobility dataset plays a crucial role, enabling the collection of work and non-work flows between origin and destination hexagons. Consequently, the equation of this model can be expressed as follows:
+
 \begin{equation} \label{eq:1} \tag{1}
 T_{ij} = A_i O_i D_j^\gamma d_{ij}^{-\beta}
 \end{equation}

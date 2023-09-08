@@ -3,7 +3,7 @@
     \section{Parameters}
         \subsection{Flows}
 
-        As evident from the observed movement patterns in Figure \ref{fig: observedflows_overview} , work-related and non-work-related flows exhibit a concentration of commuting trajectories within central London. Moreover, substantial flows are concentrated in the northeastern and southwestern regions of the city. The most notable difference between these two categories of flows lies in the concentration level: Work-related flows demonstrate a heightened level of convergence, whereas non-work-related flows display a distribution that extends spatially across a broader area.
+        As evident from the observed movement patterns from the Mobility Dataset in Figure \ref{fig: observedflows_overview} , work-related and non-work-related flows exhibit a concentration of commuting trajectories within central London. Moreover, substantial flows are concentrated in the northeastern and southwestern regions of the city. The most notable difference between these two categories of flows lies in the concentration level: Work-related flows demonstrate a heightened level of convergence, whereas non-work-related flows display a distribution that extends spatially across a broader area.
 
     \begin{figure}[H]
         \centering
@@ -19,9 +19,9 @@
 
         \subsection{Attractiveness Factor}
         
-       As part of the analytical refinement process, it was excluded the variables "CS" (commercial services) and "SE" (Sport and Entertainment). These variables were omitted due to their elevated p-values, above 0.4, signalling a lack of statistical significance. Additionally, both models exhibited a notably high condition number. However, a significant improvement was observed upon removing these two variables. The condition number, originally at 1.27e+03, was substantially reduced to a more manageable 647 in both regression models. 
+        In the workflow regression analysis(Table \ref{tab:ols-results}), it is evident that the variables "EH," "PI," and "TR" have statistical significance since their p-values are low (all below 0.001). This indicates that these variables noticeably affect the dependent variable we are studying. Additionally, the high R-squared and adjusted R-squared values (0.863 and 0.860) signify that the model effectively explains much of the variation in the dependent variable.
 
-        In the workflow regression analysis, it is evident that the variables "EH," "PI," and "TR" have statistical significance since their p-values are low (all below 0.001). This indicates that these variables noticeably affect the dependent variable we are studying. Additionally, the high R-squared and adjusted R-squared values (0.863 and 0.860) signify that the model effectively explains much of the variation in the dependent variable.
+        As part of the analytical refinement process, it was excluded the variables "CS" (commercial services) and "SE" (Sport and Entertainment). These variables were omitted due to their elevated p-values, above 0.4, signalling a lack of statistical significance. Additionally, both models exhibited a notably high condition number. However, a significant improvement was observed upon removing these two variables. The condition number, originally at 1.27e+03, was substantially reduced to a more manageable 647 in both regression models. 
 
 \begin{table}[H]
 \centering
@@ -45,7 +45,7 @@ RT & 5.8310 & 2.613 & 0.026 \\
 \label{tab:ols-results}
 \end{table}
 
-        Thus, within the context of workflows, the collective counts of Points of Interest from these three categories, namely "EH," "PI," and "TR," represent the Work-related Points of Interest.
+        Thus, within the context of workflows, the collective counts of Points of Interest from these three categories, namely "EH," "PI," and "TR," represent the Work-related Points of Interest. As shown in Figure \ref{fig: Regression_work}, these variables represent a linear relationship with the observed flows.
 
         \begin{figure}[H]
             \centering
@@ -54,7 +54,7 @@ RT & 5.8310 & 2.613 & 0.026 \\
             \label{fig: Regression_work}
         \end{figure}
 
-        Regarding the non-work flows regression analysis, we observe that the variables "EH," "PI," "RT," and "TR" also demonstrate statistical significance, as their p-values are very low (all below 0.001). This implies that these variables significantly impact the dependent variable. The R-squared and adjusted R-squared values (0.782 and 0.778) indicate that our model effectively clarifies a significant portion of the variation in the dependent variable.  
+        Regarding the non-work flows regression analysis in Table \ref{tab:ols-results-new-bold-color}, we observe that the variables "EH," "PI," "RT," and "TR" also demonstrate statistical significance, as their p-values are very low (all below 0.001). This implies that these variables significantly impact the dependent variable. The R-squared and adjusted R-squared values (0.782 and 0.778) indicate that our model effectively clarifies a significant portion of the variation in the dependent variable.  
 
         \begin{table}[H]
         \centering
@@ -78,7 +78,7 @@ RT & 5.8310 & 2.613 & 0.026 \\
         \label{tab:ols-results-new-bold-color}
         \end{table}
 
-        In the non-work flows context, the combined counts of Points of Interest from these four categories, "EH," "PI," "RT," and "TR," symbolise the Non-Work-related Points of Interest. Thus, both regression models appear well-suited for explaining the relationships between the independent and dependent variables.
+        In the non-work flows context, the combined counts of Points of Interest from these four categories, "EH," "PI," "RT," and "TR," symbolise the Non-Work-related Points of Interest. Thus, both regression models(Figure \ref{fig: Regression_nonwork}) appear well-suited for explaining the relationships between the independent and dependent variables.
 
 
         \begin{figure}[H]
@@ -121,74 +121,77 @@ RT & 5.8310 & 2.613 & 0.026 \\
             \caption{Population - UK Census 2021}
             \label{fig: Population Census}
         \end{figure}
-
-    \section{Production-constrained Model}    
-
-    \section{Deep gravity Model} 
     
-    \section{Comparative analysis of the models}  
+    \section{Analyzing the models comparatively}  
 
-    The application of the spatial interaction model revealed limitations in processing large amounts of data from the Mobility dataset. On the other hand, the Deep Gravity Model displayed notable predictive capabilities. Notably, the observed flows within the Locomizer dataset are concentrated in London's central and eastern regions. The Deep Gravity Model covered a similar geographical region as the observed flows, with a different flow density distribution, which was notably higher for longer distances.
+    The application of the spatial interaction model revealed limitations when processing the large dataset from the Mobility dataset. However, in contrast, the Deep Gravity Model demonstrated exceptional predictive capabilities, even in the face of substantial data volumes. The deep gravity model showcased its effectiveness when analyzing hexagons up to level 9, encompassing a vast geographical expanse of 17,636 hexagons and offering over 300 million potential origin-destination flows. On the other hand, the spatial interaction model was limited. It was restricted to operating exclusively within hexagons at level 7, where it relied upon the computational of a GPU equipped with high-performance RAM.
 
+    The architecture of the Deep Gravity Model entails a division of geographic region units into distinct training and test groups, a feature that has contributed to its challenges in effectively managing Big Datasets. Consequently, the model generates results exclusively for the training sample. Therefore, to maintain the integrity and consistency in our comparative analysis across various models and flow types, we opted to employ the same sample for the Production-Constrained Model, aligning it with the dataset utilised for the Deep Gravity Model. This approach ensured a comprehensive and meaningful evaluation of model performance and the complex flow dynamics patterns aimed to uncover and understand.
 
-    
-       \begin{figure}[H]
+    Some key findings in the regression plot(\ref{fig: Flows - Regression}) illustrate the relationship between the observed flows and those generated by the Deep Gravity Model (DG) and the Spatial Interaction Model (SIM). Therefore, the plot reveals a linear relationship on relationship between these variables. Furthermore, the graph unveils distinctive characteristics in the distribution of data values for each flow type. Specifically, when we examine the non-work flows, they exhibit a higher concentration, with values clustering closer to zero on the graph. In contrast, the non-work flows display a more dispersed pattern, with values distributed across a wider range of values. This divergence in the distribution patterns of the two flow types is a significant finding drawn from the regression plot. It emphasises the need for a differentiated analytical approach for each flow type.
+
+            \begin{figure}[H]
             \centering
             \includegraphics[width=14cm]{Images/Flows_regression.png}
             \caption{Flows - Regression plot}
             \label{fig: Flows - Regression}
+            \footnotesize{\textbf{Red:} Workflows. \textbf{Blue:} Non-work flows.}
         \end{figure}
 
-    In the context of non-workflows,  both models demonstrate a comparable performance when contrasted with the workflows. The observed flows highlight that non-work flows also occupy the southwestern part of London, alongside select northern regions. The spatial interaction model demonstrates a low performance for both flow types, with no significant disparity in predictive ability.
+    In assessing the performance of the models in predicting flows, it is evident that the R-squared values for Non-work flows outperform those for workflows, with a notable high value of 0.7 observed in the production-constrained model for non-work flows and 0.9 in the Deep Gravity Model. In the context of workflows, the DG model achieved a better performance of 0.9, while the SIM model had 0.6.
     
-    In contrast, the Deep Gravity Model exhibits good predictive performance for non-work flows compared to workflows, effectively covering nearly similar regions as indicated by the observed flows. This outcome suggests that the Deep Gravity Model is particularly adept at capturing the dynamics of non-work-related mobility, offering a significant advantage in this specific aspect of flow prediction.
-        
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=15cm]{Images/Hex_comparativeanalysis.png}
-            \caption{Non-work flows}
-            \label{fig: nWF Model after calibration}
-        \end{figure}
+    R-squared serves as a valuable metric for comprehending the influence of variables on flow prediction. Consequently, it becomes crucial to measure the efficacy of each model in estimating flows and the capability of selected independent variables in predicting the outcome. Among these variables, including distance, population, and the attractiveness factor derived from Points of Interest (POI), it is evident that they demonstrate superior performance in estimating flows, particularly within the Deep gravity model, outperforming the SIM model. Because of that, evaluating the Root Mean Square Error (RMSE) arises as an essential measure for comparing and evaluating the models against each other.
 
-    In assessing the performance of the models in predicting flows, it is evident that the R-squared values for Non-work flows outperform those for workflows, with a notable high value of 0.79 observed in the production-constrained model for non-work flows. R-squared serves as a valuable metric for comprehending the influence of variables on flow prediction. Consequently, it becomes crucial to measure the efficacy of each model in estimating flows and the capability of selected independent variables in predicting the outcome. Among these variables, including distance, population, and the attractiveness factor derived from Points of Interest (POI), it is evident that they demonstrate superior performance in estimating flows, particularly within the production-constrained framework for non-work flows, outperforming other models. Because of that, evaluating the Root Mean Square Error (RMSE) arises as an essential measure for comparing and evaluating the models against each other.
+    The performance of the models displayed significant variations depending on the specific type of flow under consideration. It is important to highlight that the Production-Constrained Model, when put to the test, yielded the lowest RMSE value, achieving a relevant score of 14.69 for work-related flows. On the other hand, the Deep Gravity Model showcased a significantly lower RMSE value as well, standing at 41.47 for workflows. The model performance across these different flow types is concisely summarised in Table \ref{table: RMSE}, providing a comprehensive overview of how each model excelled in distinct aspects of mobility prediction.
 
-        \begin{table}[H]
+            \begin{table}[h]
         \centering
         \begin{tabular}{@{}lll@{}}
         \toprule
         \textbf{Flows type} & \textbf{Deep Gravity} & \textbf{Production-Constrained} \\ \midrule
-        Work                & 0.66                  & 0.64                            \\
-        Non-work            & 0.69                  & 0.79                            \\ \bottomrule
-        \end{tabular}
-            \caption{r-squared}
-            \label{table: Table XX}
-        \end{table}
-    
-
-    The performance of the models displayed significant variations depending on the specific type of flow under consideration. It is important to highlight that the Production-Constrained Model, when put to the test, yielded the lowest RMSE value, achieving a relevant score of 15.43 for work-related flows. On the other hand, the Deep Gravity Model showcased a significantly lower RMSE value, standing at 28.01, but this was for non-work flows. This contrast in performance underscores a pattern: the model designed around deep learning structures demonstrated its superiority when predicting non-work flows, often characterized by their complex and non-linear trajectories within the urban landscape.
-
-    Non-work flows contain various activities and behaviours within a city, such as leisure, tourism, and social interactions. These activities tend to follow less predictable patterns, making them challenging to model accurately. However, with its inherent capacity to capture intricate relationships and dependencies within the data, the Deep Gravity Model excelled in this aspect. It showcased its ability to predict the diverse and sometimes complex mobility patterns associated with non-work-related activities, producing lower error rates.
-    
-    On the other hand, the traditional Spatial Interaction Model demonstrated its comparative advantage in estimating flows characterized by a more linear and structured relationship, primarily those about work-related activities. Workflows often follow established commuting routes and daily routines, resulting in more predictable mobility patterns. In these scenarios, the traditional model indicated greater accuracy in the workflow predictions. However, it obtained an RMSE rate for non-workflows.
-    
-    The model performance across these different flow types is concisely summarized in Table \ref{table: RMSE}, providing a comprehensive overview of how each model excelled in distinct aspects of mobility prediction.
-
-        \begin{table}[h]
-        \centering
-        \begin{tabular}{@{}lll@{}}
-        \toprule
-        \textbf{Flows type} & \textbf{Deep Gravity} & \textbf{Production-Constrained} \\ \midrule
-        Work                & 433.65                & 15.43                           \\
-        Non-work            & 28.01                 & 387.67                          \\ \bottomrule
+        Work                & 41.47                & 14.69                          \\
+        Non-work            & 336.71                 & 141.19                          \\ \bottomrule
         \end{tabular}
             \caption{RMSE}
             \label{table: RMSE}
         \end{table}
+    
+    The contrast in model performance reveals a pattern: Models rooted in deep learning structures outperform the production-constrained model when predicting workflows. This result is evidenced by the high r-squared values and low RMSE (Root Mean Square Error) associated with these models. On the other hand, the prediction of non-work flows reveals a more complex context characterised by non-linear trajectories within the urban environment. Thus, both models achieve high r-squared values, with the deep gravity model slightly edging ahead. However, the SIM model records a lower RMSE value than the deep gravity model in this context.
 
+    Nevertheless,  despite the spatial interaction model's computational limitations, the deep gravity model performs better when handling larger datasets. This is exemplified in Table \ref{table: RMSE_DG}, where the model demonstrates an r-squared of 0.7, lower than what was achieved at level 7. However, it is worth noting that the deep gravity model yields a lower RMSE, specifically 28.01, higher than the corresponding figure for the SIM model. Therefore, when the model aggregates data, the DG model experiences a decrease in performance in terms of RMSE, indicating the specificities of model behaviour under varying data conditions.
+        
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{@{}lll@{}}
+        \toprule
+        \textbf{Flows type} & \textbf{Level 8} & \textbf{Level 7} \\ \midrule
+        Work                & 433.65                & 41.47                          \\
+        Non-work            & 28.01                 & 336.71                          \\ \bottomrule
+        \end{tabular}
+            \caption{RMSE- Deep Gravity Model at Hexagons level 7 and 8}
+            \label{table: RMSE_DG}
+        \end{table}
+    
+    
+    In this context, the non-work flows contain various activities and behaviours within a city, such as leisure, tourism, and social interactions. These activities tend to follow less predictable patterns, making them challenging to model accurately. However, with its inherent capacity to capture intricate relationships and dependencies within the data, the Deep Gravity Model excelled in this aspect. It showcased its ability to predict the diverse and sometimes complex mobility patterns associated with non-work-related activities, producing lower error rates.
+    
+    The traditional Spatial Interaction Model demonstrated its comparative advantage in estimating flows characterised by a more linear and structured relationship, primarily those about work-related activities. Workflows often follow established commuting routes and daily routines, resulting in more predictable mobility patterns. In these scenarios, the traditional model indicated greater accuracy in the workflow predictions. However, it obtained an RMSE rate for non-workflows.
+        
+    To compared the models, values were normalised.
+        
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=15cm]{Images/Hex_comparativeanalysis.png}
+            \caption{Observed and predicted flows for work and non-work flows}
+            \footnotesize{OBS: Observed, DG: Deep Gravity, SIM: Spatial Interaction model, Red: workflows, Blue: non-workflows}
+            \label{fig: nWF Model after calibration}
+        \end{figure}
 
+%%%%%%%%%%%%% DISCUSSION
+        
 \section{Discussion}
 
-       The attractiveness factor utilised in the Spatial Interaction Model for Work and Non-work flows was constructed based on the categories within the POI dataset, see Figure \ref{fig: Attractiveness factor}. In the context of Workflows, the analysis revealed that Public Infrastructure (PI), Transport (TR), and Education and Health (EH) emerged as the most significant variables in the data collected from Mobility Data. In contrast, for the Non-work attractiveness factor, the primary variables align with those of the Workflows, except for Retail (RT).
+       The attractiveness factor utilised in the Spatial Interaction Model for Work and Non-work flows was constructed based on the categories within the POI dataset; see Figure \ref{fig: Attractiveness factor}. In the context of Workflows, the analysis revealed that Public Infrastructure (PI), Transport (TR), and Education and Health (EH) emerged as the most significant variables in the data collected from Mobility Data. In contrast, for the Non-work attractiveness factor, the primary variables align with those of the Workflows, except for Retail (RT).
 
         \begin{figure}[H]
             \centering
